@@ -1,0 +1,10 @@
+---
+version: '3'
+
+services:
+    mkcert:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ./data:/mkcert/data
