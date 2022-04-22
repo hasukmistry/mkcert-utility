@@ -1,16 +1,16 @@
 .DEFAULT_GOAL := help
 BASE_DIR 	:= $(shell pwd | xargs basename)
 
-start: ## Start certificate generator service
+build: ## Build and configure a docker image
 	@docker-compose up -d
 
-certificates: ## Generates certificate and key for given domain. Example: `make certificates domain=example.com`
+certificates: ## Generate key and certificate for given domain. Example: `make certificates domain=example.com`
 	@docker-compose run mkcert \
 		/bin/sh -c \
 		"mkcert -install \
 		&& mkcert -cert-file /mkcert/data/$(domain).cert.pem -key-file /mkcert/data/$(domain).key.pem $(domain) www.$(domain)"
 
-shutdown: ## Close certificate generator service
+shutdown: ## Turn off the running container
 	@docker-compose down
 
 ############################
